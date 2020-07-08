@@ -14,8 +14,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={Quiz} />
         <Route path="/quizbuilder" component={QuizBuilder} />
-        <Route path="/addquestion/:id" component={AddQuestion} />
-        <Route path="/addquestion/:id/:questionid" component={AddQuestion} />
+        <Route path="/addquestion/:topic" component={AddQuestion} />
+        <Route path="/addquestion/:topic/:editId" component={AddQuestion} />
       </Switch>
     </Router>
   </div>

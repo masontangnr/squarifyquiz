@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import QuizQuestion from '../components/QuizQuestion';
-import { useHistory,  useParams } from "react-router-dom";
-
+import QuizQuestion from "../components/QuizQuestion";
+import { useHistory, useParams } from "react-router-dom";
 
 const AddQuestion = (props) => {
-
   let history = useHistory();
-
 
   const initialInput = {
     question: "",
@@ -19,7 +16,7 @@ const AddQuestion = (props) => {
 
   let questions = [
     {
-      id:1,
+      id: 1,
       question: "What is your name?",
       option: {
         a: "mason",
@@ -30,7 +27,7 @@ const AddQuestion = (props) => {
       answer: "A",
     },
     {
-      id:2,
+      id: 2,
       question: "What is your favorite Ice Cream?",
       option: {
         a: "vanilla",
@@ -42,18 +39,20 @@ const AddQuestion = (props) => {
     },
   ];
 
-
   const [score, setScore] = useState(0);
 
   async function deleteQuestion(id) {
-    let password = prompt("Please enter in the password to delete the question", "");
+    let password = prompt(
+      "Please enter in the password to delete the question",
+      ""
+    );
     if (password === "delete") {
-     console.log(id)
+      console.log(id);
     }
   }
 
   async function editQuestion(id) {
-    history.push(`/addquestion/${props.match.params.id}/${id}`)
+    history.push(`/addquestion/${props.match.params.topic}/${id}`);
   }
 
   return (
@@ -86,10 +85,12 @@ const AddQuestion = (props) => {
           Answer:
           <input required type="text" className="form-control ml-2 w-75" />
         </label>
-        <button type="submit" class="btn btn-info mt-3">Submit</button>
+        <button type="submit" class="btn btn-info mt-3">
+          Submit
+        </button>
       </form>
-      <QuizQuestion 
-        questions={questions} 
+      <QuizQuestion
+        questions={questions}
         deleteQuestion={deleteQuestion}
         editQuestion={editQuestion}
       />

@@ -13,10 +13,10 @@ const QuizQuestion = ({questions, deleteQuestion, editQuestion}) => {
         {questions.map((question, index) => 
           <div className="mt-5 mb-3 quizQuestion p-3 w-75">
             <p>{question.question}</p>
-        <p>A: {question.option.a}</p>
-        <p>B: {question.option.b}</p>
-        <p>C: {question.option.c}</p>
-        <p>D: {question.option.d}</p>
+        <p>A) {question.option.a}</p>
+        <p>B) {question.option.b}</p>
+        <p>C) {question.option.c}</p>
+        <p>D) {question.option.d}</p>
         <p>Answer: {question.answer}</p>
         <button onClick={() => editQuestion(question.id)} className="btn btn-primary">Edit</button>
         <button onClick={() => deleteQuestion(question.id)} className="btn btn-danger ml-3">Delete</button>

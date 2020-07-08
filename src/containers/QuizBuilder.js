@@ -6,17 +6,17 @@ const QuizBuilder = () => {
 
   const data = [
     {
-      quizTitle: "Fractions",
+      topic: "Fractions",
       id:1
     },
     {
-      quizTitle: "Graphs",
+      topic: "Graphs",
       id: 2
     }
   ]
 
   const initialInput = {
-    quizTitle: "title",
+    topic: "title",
     id:'hi'
   };
   
@@ -51,7 +51,7 @@ const QuizBuilder = () => {
               className="form-control w-25"
               id="quizTitle"
               name="quizTitle"
-              value={quizTitle.quizTitle}
+              value={quizTitle.topic}
             />
             <button className="btn btn-info ml-3">Submit</button>
           </div>
@@ -62,8 +62,8 @@ const QuizBuilder = () => {
       <div className="pl-5 mt-5">
         {quizTitle.map((title, index) => 
         <div key={index} className="quizTitle mb-4 w-50 p-3">
-          <p>{title.quizTitle}</p>
-          <Link to={`/addquestion/${title.id}`}>
+          <p>{title.topic}</p>
+          <Link to={`/addquestion/${title.topic}`}>
           <button className="btn btn-primary">Add Questions</button>
           </Link>
           <button onClick={() => deleteQuestion(title.id)} id={title.id} className="btn btn-danger ml-3">Delete Questions</button>
