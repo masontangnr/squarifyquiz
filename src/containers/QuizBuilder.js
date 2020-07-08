@@ -20,11 +20,17 @@ const QuizBuilder = () => {
     id:'hi'
   };
   
-  const [quizTitle, setQuizTitle] = useState(data);
+  let [quizTitles, setQuizTitles] = useState(data);
+  let [searchQuizTitle, setSearchQuizTitle] = useState("");
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setQuizTitle({ ...quizTitle, [name]: value });
+    setQuizTitles({ ...quizTitles, [name]: value });
+  };
+
+  const handleChange = (e) => {
+    setSearchQuizTitle(e.target.value);
   };
 
   async function deleteQuestion(id) {
@@ -34,6 +40,15 @@ const QuizBuilder = () => {
     }
   }
 
+  let filteredTopic = quizTitles.filter((quizTitle) => {
+    
+    const topic = quizTitle.topic.toLowerCase()
+
+    return topic.includes(searchQuizTitle.toLowerCase());
+  })
+
+  console.log(searchQuizTitle)
+
 
   return (
     <>
@@ -41,6 +56,7 @@ const QuizBuilder = () => {
       <div className="d-flex justify-content-center">
         <h1>Build Your Quiz</h1>
       </div>
+
       <form action="" className="ml-5">
         <div className="form-group">
           <label htmlFor="quizTitle">Add Quiz Title</label>
@@ -51,16 +67,26 @@ const QuizBuilder = () => {
               className="form-control w-25"
               id="quizTitle"
               name="quizTitle"
-              value={quizTitle.topic}
+              value={quizTitles.topic}
             />
             <button className="btn btn-info ml-3">Submit</button>
           </div>
         </div>
       </form>
 
+      <div className="searchbar ml-5 mt-5">
+        <input
+          placeholder="Type to search topics"
+          className="p-1 w-50"
+          onChange={handleChange}
+          type="text"
+        />
+      </div>
+
       {/*Quiz Titles*/}
+      
       <div className="pl-5 mt-5">
-        {quizTitle.map((title, index) => 
+        {filteredTopic.map((title, index) => 
         <div key={index} className="quizTitle mb-4 w-50 p-3">
           <p>{title.topic}</p>
           <Link to={`/addquestion/${title.topic}`}>
