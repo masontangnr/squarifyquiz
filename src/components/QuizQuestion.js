@@ -1,6 +1,6 @@
 import React from 'react'
 
-const QuizQuestion = ({questions}) => {
+const QuizQuestion = ({questions, deleteQuestion, editQuestion}) => {
 
   console.log(questions)
 
@@ -18,8 +18,8 @@ const QuizQuestion = ({questions}) => {
         <p>C: {question.option.c}</p>
         <p>D: {question.option.d}</p>
         <p>Answer: {question.answer}</p>
-        <button className="btn btn-primary">Edit</button>
-        <button className="btn btn-danger ml-3">Delete</button>
+        <button onClick={() => editQuestion(question.id)} className="btn btn-primary">Edit</button>
+        <button onClick={() => deleteQuestion(question.id)} className="btn btn-danger ml-3">Delete</button>
           </div>
         )}
       </div>

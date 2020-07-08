@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import QuizQuestion from '../components/QuizQuestion';
+import { useHistory,  useParams } from "react-router-dom";
 
-const AddQuestion = () => {
+
+const AddQuestion = (props) => {
+
+  let history = useHistory();
+
+
   const initialInput = {
     question: "",
     a: "",
@@ -13,6 +19,7 @@ const AddQuestion = () => {
 
   let questions = [
     {
+      id:1,
       question: "What is your name?",
       option: {
         a: "mason",
@@ -23,6 +30,7 @@ const AddQuestion = () => {
       answer: "A",
     },
     {
+      id:2,
       question: "What is your favorite Ice Cream?",
       option: {
         a: "vanilla",
@@ -36,6 +44,17 @@ const AddQuestion = () => {
 
 
   const [score, setScore] = useState(0);
+
+  async function deleteQuestion(id) {
+    let password = prompt("Please enter in the password to delete the question", "");
+    if (password === "delete") {
+     console.log(id)
+    }
+  }
+
+  async function editQuestion(id) {
+    history.push(`/addquestion/${props.match.params.id}/${id}`)
+  }
 
   return (
     <>
@@ -69,7 +88,11 @@ const AddQuestion = () => {
         </label>
         <button type="submit" class="btn btn-info mt-3">Submit</button>
       </form>
-      <QuizQuestion questions={questions}/>
+      <QuizQuestion 
+        questions={questions} 
+        deleteQuestion={deleteQuestion}
+        editQuestion={editQuestion}
+      />
     </>
   );
 };

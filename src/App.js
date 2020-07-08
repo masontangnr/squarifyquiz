@@ -15,6 +15,7 @@ function App() {
         <Route exact path="/" component={Quiz} />
         <Route path="/quizbuilder" component={QuizBuilder} />
         <Route path="/addquestion/:id" component={AddQuestion} />
+        <Route path="/addquestion/:id/:questionid" component={AddQuestion} />
       </Switch>
     </Router>
   </div>

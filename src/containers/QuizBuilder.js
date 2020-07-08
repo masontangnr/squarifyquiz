@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link  } from "react-router-dom";
 
 
 const QuizBuilder = () => {
@@ -30,11 +30,10 @@ const QuizBuilder = () => {
   async function deleteQuestion(id) {
     let password = prompt("Please enter in the password to delete the question", "");
     if (password === "delete") {
-     console.log('deleted')
+     console.log(id)
     }
   }
 
-  console.log(quizTitle);
 
   return (
     <>
