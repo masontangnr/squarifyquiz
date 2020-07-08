@@ -1,43 +1,50 @@
 import React, { useState } from "react";
-import QuizTitle from '../components/QuizTitle'
+import { Link } from "react-router-dom";
+
 
 const QuizBuilder = () => {
 
   const data = [
     {
       quizTitle: "Fractions",
-      hi:'hi'
+      id:1
     },
     {
       quizTitle: "Graphs",
-      hi:'hi'
+      id: 2
     }
   ]
 
   const initialInput = {
     quizTitle: "title",
-    hi:'hi'
+    id:'hi'
   };
   
   const [quizTitle, setQuizTitle] = useState(data);
-
-  const listItems = quizTitle.map((number) =>  <li>{number.quizTitle}</li>);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setQuizTitle({ ...quizTitle, [name]: value });
   };
 
+  async function deleteQuestion(id) {
+    let password = prompt("Please enter in the password to delete the question", "");
+    if (password === "delete") {
+     console.log('deleted')
+    }
+  }
+
   console.log(quizTitle);
 
   return (
     <>
+      {/*Build Your Quiz*/}
       <div className="d-flex justify-content-center">
         <h1>Build Your Quiz</h1>
       </div>
       <form action="" className="ml-5">
         <div className="form-group">
-          <label for="quizTitle">Add Quiz Title</label>
+          <label htmlFor="quizTitle">Add Quiz Title</label>
           <div className="d-flex">
             <input
               type="text"
@@ -51,7 +58,19 @@ const QuizBuilder = () => {
           </div>
         </div>
       </form>
-      <QuizTitle quizTitle={quizTitle}/>
+
+      {/*Quiz Titles*/}
+      <div className="pl-5 mt-5">
+        {quizTitle.map((title, index) => 
+        <div key={index} className="quizTitle mb-4 w-50 p-3">
+          <p>{title.quizTitle}</p>
+          <Link to={`/addquestion/${title.id}`}>
+          <button className="btn btn-primary">Add Questions</button>
+          </Link>
+          <button onClick={() => deleteQuestion(title.id)} id={title.id} className="btn btn-danger ml-3">Delete Questions</button>
+        </div>
+        )}
+      </div>
     </>
   );
 };
