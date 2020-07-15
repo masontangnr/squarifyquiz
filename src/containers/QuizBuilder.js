@@ -2,58 +2,66 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const QuizBuilder = () => {
-  const data = [
-    {
-      topic: "Fractions",
-      id: 1,
-    },
-    {
-      topic: "Graphs",
-      id: 2,
-    },
-  ];
-
-  const initialInput = {
-    topic: "title",
-    id: "hi",
-  };
 
   let [quizTitles, setQuizTitles] = useState([]);
   let [searchQuizTitle, setSearchQuizTitle] = useState("");
 
+  let jwt = localStorage.getItem('jwt_token');
+
   useEffect(() => {
-    fetch(`https://squarify-restful-api.herokuapp.com/api/v1/quizzes`, {
+    getQuizTitles();
+  }, []);
+
+  console.log(quizTitles)
+
+  async function getQuizTitles (){
+    let response = await fetch(`https://squarify-restful-api.herokuapp.com/api/v1/quizzes`, {
       headers: {
-        'jwt_token':
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoibDA2MDk4OTAifSwiaWF0IjoxNTk0NDE1ODU4LCJleHAiOjE1OTcwMDc4NTh9.N8gjqe91Dlg6ujixsPja9QAFe2ziHcYDAKGXhT53A08",
+        'jwt_token':jwt,
       },
     })
-      .then((res) => res.json())
-      .then((json) => setQuizTitles(json));
-  }, []);
-  console.log(quizTitles);
+    let quizTitles = await response.json();
+    setQuizTitles(quizTitles.data);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setQuizTitles({ ...quizTitles, [name]: value });
   };
 
-  const handleChange = (e) => {
+  const handleFilterChange = (e) => {
     setSearchQuizTitle(e.target.value);
   };
 
-  async function deleteQuestion(id) {
+  async function addQuizTitle(quizTitle){
+    let response = await fetch('https://squarify-restful-api.herokuapp.com/api/v1/quizzes',{
+      method: 'POST',
+      headers: {
+        'jwt_token':jwt,
+      },
+      body: JSON.stringify({title:quizTitle})
+    })
+  }
+  
+
+  async function deleteQuizTitle(id) {
     let password = prompt(
       "Please enter in the password to delete the question",
       ""
     );
     if (password === "delete") {
-      console.log(id);
+      let deleteQuiz = await fetch(`https://squarify-restful-api.herokuapp.com/api/v1/quizzes/${id}`,{
+        headers: {
+          'jwt_token':jwt,
+        },
+        method: "DELETE"
+      })
+      getQuizTitles();
     }
   }
 
   let filteredTopic = quizTitles.filter((quizTitle) => {
-    const topic = quizTitle.topic.toLowerCase();
+    const topic = quizTitle.title.toLowerCase();
 
     return topic.includes(searchQuizTitle.toLowerCase());
   });
@@ -65,7 +73,7 @@ const QuizBuilder = () => {
         <h1>Build Your Quiz</h1>
       </div>
 
-      <form action="" className="ml-5">
+      <form onSubmit={addQuizTitle} className="ml-5">
         <div className="form-group">
           <label htmlFor="quizTitle">Add Quiz Title</label>
           <div className="d-flex">
@@ -77,7 +85,7 @@ const QuizBuilder = () => {
               name="quizTitle"
               value={quizTitles.topic}
             />
-            <button className="btn btn-info ml-3">Submit</button>
+            <button type="submit" className="btn btn-info ml-3">Submit</button>
           </div>
         </div>
       </form>
@@ -86,7 +94,7 @@ const QuizBuilder = () => {
         <input
           placeholder="Type to search topics"
           className="p-1 w-50"
-          onChange={handleChange}
+          onChange={handleFilterChange}
           type="text"
         />
       </div>
@@ -96,13 +104,13 @@ const QuizBuilder = () => {
       <div className="pl-5 mt-5">
         {filteredTopic.map((title, index) => (
           <div key={index} className="quizTitle mb-4 w-50 p-3">
-            <p>{title.topic}</p>
-            <Link to={`/addquestion/${title.topic}`}>
+            <p>{title.title}</p>
+            <Link to={`/addquestion/${title.title}`}>
               <button className="btn btn-primary">Add Questions</button>
             </Link>
             <button
-              onClick={() => deleteQuestion(title.id)}
-              id={title.id}
+              onClick={() => deleteQuizTitle(title._id)}
+              id={title._id}
               className="btn btn-danger ml-3"
             >
               Delete Questions
