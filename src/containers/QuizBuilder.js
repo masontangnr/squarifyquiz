@@ -1,28 +1,37 @@
-import React, { useState } from "react";
-import { Link  } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const QuizBuilder = () => {
-
   const data = [
     {
       topic: "Fractions",
-      id:1
+      id: 1,
     },
     {
       topic: "Graphs",
-      id: 2
-    }
-  ]
+      id: 2,
+    },
+  ];
 
   const initialInput = {
     topic: "title",
-    id:'hi'
+    id: "hi",
   };
-  
-  let [quizTitles, setQuizTitles] = useState(data);
+
+  let [quizTitles, setQuizTitles] = useState([]);
   let [searchQuizTitle, setSearchQuizTitle] = useState("");
 
+  useEffect(() => {
+    fetch(`https://squarify-restful-api.herokuapp.com/api/v1/quizzes`, {
+      headers: {
+        'jwt_token':
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoibDA2MDk4OTAifSwiaWF0IjoxNTk0NDE1ODU4LCJleHAiOjE1OTcwMDc4NTh9.N8gjqe91Dlg6ujixsPja9QAFe2ziHcYDAKGXhT53A08",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => setQuizTitles(json));
+  }, []);
+  console.log(quizTitles);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -34,21 +43,20 @@ const QuizBuilder = () => {
   };
 
   async function deleteQuestion(id) {
-    let password = prompt("Please enter in the password to delete the question", "");
+    let password = prompt(
+      "Please enter in the password to delete the question",
+      ""
+    );
     if (password === "delete") {
-     console.log(id)
+      console.log(id);
     }
   }
 
   let filteredTopic = quizTitles.filter((quizTitle) => {
-    
-    const topic = quizTitle.topic.toLowerCase()
+    const topic = quizTitle.topic.toLowerCase();
 
     return topic.includes(searchQuizTitle.toLowerCase());
-  })
-
-  console.log(searchQuizTitle)
-
+  });
 
   return (
     <>
@@ -84,17 +92,23 @@ const QuizBuilder = () => {
       </div>
 
       {/*Quiz Titles*/}
-      
+
       <div className="pl-5 mt-5">
-        {filteredTopic.map((title, index) => 
-        <div key={index} className="quizTitle mb-4 w-50 p-3">
-          <p>{title.topic}</p>
-          <Link to={`/addquestion/${title.topic}`}>
-          <button className="btn btn-primary">Add Questions</button>
-          </Link>
-          <button onClick={() => deleteQuestion(title.id)} id={title.id} className="btn btn-danger ml-3">Delete Questions</button>
-        </div>
-        )}
+        {filteredTopic.map((title, index) => (
+          <div key={index} className="quizTitle mb-4 w-50 p-3">
+            <p>{title.topic}</p>
+            <Link to={`/addquestion/${title.topic}`}>
+              <button className="btn btn-primary">Add Questions</button>
+            </Link>
+            <button
+              onClick={() => deleteQuestion(title.id)}
+              id={title.id}
+              className="btn btn-danger ml-3"
+            >
+              Delete Questions
+            </button>
+          </div>
+        ))}
       </div>
     </>
   );
