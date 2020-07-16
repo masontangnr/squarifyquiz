@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 
 const QuizBuilder = () => {
 
+
+
   let [quizTitles, setQuizTitles] = useState([]);
   let [searchQuizTitle, setSearchQuizTitle] = useState("");
+  let [addQuizTitles, setAddQuizTitles] = useState("")
 
   let jwt = localStorage.getItem('jwt_token');
 
   useEffect(() => {
     getQuizTitles();
   }, []);
-
-  console.log(quizTitles)
 
   async function getQuizTitles (){
     let response = await fetch(`https://squarify-restful-api.herokuapp.com/api/v1/quizzes`, {
@@ -26,21 +27,25 @@ const QuizBuilder = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setQuizTitles({ ...quizTitles, [name]: value });
+    setAddQuizTitles({ ...addQuizTitles, [name]: value });
   };
 
   const handleFilterChange = (e) => {
     setSearchQuizTitle(e.target.value);
   };
 
-  async function addQuizTitle(quizTitle){
+  async function addQuizTitle(e){
+    e.preventDefault()
     let response = await fetch('https://squarify-restful-api.herokuapp.com/api/v1/quizzes',{
       method: 'POST',
       headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
         'jwt_token':jwt,
       },
-      body: JSON.stringify({title:quizTitle})
+      body: JSON.stringify(addQuizTitles)
     })
+    getQuizTitles();
   }
   
 
@@ -81,8 +86,8 @@ const QuizBuilder = () => {
               type="text"
               onChange={handleInputChange}
               className="form-control w-25"
-              id="quizTitle"
-              name="quizTitle"
+              id="title"
+              name="title"
               value={quizTitles.topic}
             />
             <button type="submit" className="btn btn-info ml-3">Submit</button>
