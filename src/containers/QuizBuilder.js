@@ -110,7 +110,7 @@ const QuizBuilder = () => {
         {filteredTopic.map((title, index) => (
           <div key={index} className="quizTitle mb-4 w-50 p-3">
             <p>{title.title}</p>
-            <Link to={`/addquestion/${title.title}`}>
+            <Link to={`/addquestion/${title._id}`}>
               <button className="btn btn-primary">Add Questions</button>
             </Link>
             <button

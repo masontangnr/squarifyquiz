@@ -12,10 +12,9 @@ function App() {
   <div className="App">
     <Router>
       <Switch>
-        <Route exact path="/" component={Quiz} />
+        <Route exact path="/:id" component={Quiz} />
         <Route path="/quizbuilder" component={QuizBuilder} />
-        <Route path="/addquestion/:topic" component={AddQuestion} />
-        <Route path="/addquestion/:topic/:editId" component={AddQuestion} />
+        <Route path="/addquestion/:id" component={AddQuestion} />
       </Switch>
     </Router>
   </div>
