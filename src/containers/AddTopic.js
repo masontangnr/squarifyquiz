@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import QuizTitles from "../components/QuizTitles"
 
-const QuizBuilder = () => {
-
-
+const AddTopic = () => {
 
   let [quizTitles, setQuizTitles] = useState([]);
   let [searchQuizTitle, setSearchQuizTitle] = useState("");
@@ -22,7 +20,8 @@ const QuizBuilder = () => {
       },
     })
     let quizTitles = await response.json();
-    setQuizTitles(quizTitles.data);
+    console.log(quizTitles)
+    setQuizTitles(quizTitles.data.title);
   }
 
   const handleInputChange = (event) => {
@@ -73,7 +72,7 @@ const QuizBuilder = () => {
 
   return (
     <>
-      {/*Build Your Quiz*/}
+      {/*Create Topic*/}
       <div className="d-flex justify-content-center">
         <h1>Build Your Quiz</h1>
       </div>
@@ -105,26 +104,13 @@ const QuizBuilder = () => {
       </div>
 
       {/*Quiz Titles*/}
-
-      <div className="pl-5 mt-5">
-        {filteredTopic.map((title, index) => (
-          <div key={index} className="quizTitle mb-4 w-50 p-3">
-            <p>{title.title}</p>
-            <Link to={`/addquestion/${title._id}`}>
-              <button className="btn btn-primary">Add Questions</button>
-            </Link>
-            <button
-              onClick={() => deleteQuizTitle(title._id)}
-              id={title._id}
-              className="btn btn-danger ml-3"
-            >
-              Delete Questions
-            </button>
-          </div>
-        ))}
-      </div>
+      <QuizTitles 
+        filteredTopic={filteredTopic}
+        deleteQuizTitle={deleteQuizTitle}
+      />
+     
     </>
   );
 };
 
-export default QuizBuilder;
+export default AddTopic;

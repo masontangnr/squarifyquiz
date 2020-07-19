@@ -1,8 +1,6 @@
 import React from 'react'
 
-const QuizQuestion = ({props,deleteQuestion, editQuestion, quizQuestions, setEdit}) => {
-
-  console.log(props.match.params.id);
+const QuizQuestion = ({deleteQuestion, quizQuestions, setEdit, getQuizQuestion}) => {
 
   return (
     <>
@@ -18,7 +16,14 @@ const QuizQuestion = ({props,deleteQuestion, editQuestion, quizQuestions, setEdi
         <p>C) {question.options.c}</p>
         <p>D) {question.options.d}</p>
         <p>Answer: {question.answer.toUpperCase()}</p>
-        <button onClick={() => editQuestion(question._id), () => setEdit(true)} className="btn btn-primary">Edit</button>
+        <button onClick={() => {
+          getQuizQuestion(question._id); 
+          setEdit(true);
+          window.scrollTo(0, 0)
+        }} 
+        className="btn btn-primary">
+        Edit
+        </button>
         <button onClick={() => deleteQuestion(question._id)} className="btn btn-danger ml-3">Delete</button>
           </div>
         )}

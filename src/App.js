@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import QuizBuilder from './containers/QuizBuilder';
+import AddTopic from './containers/AddTopic';
 import Quiz from './containers/Quiz'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddQuestion from './containers/AddQuestion';
@@ -12,9 +12,9 @@ function App() {
   <div className="App">
     <Router>
       <Switch>
+        <Route exact path="/addtopic" component={AddTopic} /> 
         <Route exact path="/:id" component={Quiz} />
-        <Route path="/quizbuilder" component={QuizBuilder} />
-        <Route path="/addquestion/:id" component={AddQuestion} />
+        <Route exact path="/addquestion/:id" component={AddQuestion} />
       </Switch>
     </Router>
   </div>
