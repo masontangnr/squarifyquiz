@@ -20,8 +20,7 @@ const AddTopic = () => {
       },
     })
     let quizTitles = await response.json();
-    console.log(quizTitles)
-    setQuizTitles(quizTitles.data.title);
+    setQuizTitles(quizTitles.data);
   }
 
   const handleInputChange = (event) => {

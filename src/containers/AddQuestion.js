@@ -214,7 +214,10 @@ const AddQuestion = (props) => {
               Edit Questions
             </button>
             <button
-              onClick={() => setEdit(false)}
+              onClick={() => {
+                setEdit(false);
+                window.location.reload()
+              }}
               className="btn btn-danger mt-3 ml-4"
             >
               Cancel Edit
