@@ -64,7 +64,6 @@ const AddQuestion = (props) => {
     window.location.reload();
   }
 
-  console.log(addQuestion)
 
   async function deleteQuestion(id) {
     let password = prompt(
@@ -204,6 +203,7 @@ const AddQuestion = (props) => {
           </select>
         </label>
 
+        {/* E */}
         {edit ? (
             <>
             <button

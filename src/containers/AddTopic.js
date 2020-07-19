@@ -33,7 +33,6 @@ const AddTopic = () => {
   };
 
   async function addQuizTitle(e){
-    e.preventDefault()
     let response = await fetch('https://squarify-restful-api.herokuapp.com/api/v1/quizzes',{
       method: 'POST',
       headers: {

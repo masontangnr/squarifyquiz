@@ -5,7 +5,7 @@ const Flashcard = ({quizQuestions, number, decreaseNumber, increaseNumber, displ
     <>
        {quizQuestions.map((question, index) =>
         number === index ? ( //cards display only if the card index matches the current number
-          <div className="mt-5 ml-3 mb-3 quizQuestion p-3 w-75">
+          <div className="ml-3 mr-3  quizQuestion p-3">
             <p>
               {index + 1} out of {quizQuestions.length} questions
             </p>
