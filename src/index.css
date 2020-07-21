@@ -12,3 +12,19 @@ code {
     monospace;
 }
 
+@media screen and (max-width: 500px){
+  .button-alignment{
+    display:flex;
+    flex-direction: column;
+  }
+  .button-alignment .btn{
+    margin-top:20px;
+    width:200px;
+    position: relative;
+    left:-20px;
+    top: -20px;
+  }
+  .button-alignment .btn-primary:first-of-type{
+    margin-left:17px;
+  }
+}

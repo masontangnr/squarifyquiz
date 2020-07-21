@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Flashcard from '../components/Flashcard'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import ModalBody from 'react-bootstrap/ModalBody'
 
 const Quiz = (props) => {
   const [number, setNumber] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   let [quizQuestions, setQuizQuestions] = useState([])
+
   //modal
   const [lgShow, setLgShow] = useState(false);
   const handleClose = () => setLgShow(false);
@@ -41,22 +41,16 @@ const Quiz = (props) => {
 
   return (
     <>
-      <Flashcard 
-        quizQuestions={quizQuestions}
-        number={number}
-        decreaseNumber={decreaseNumber}
-        increaseNumber={increaseNumber}
-        displayAnswer={displayAnswer}
-        showAnswer={showAnswer}
-      />
+      
       <div>
        <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+        Fraction Quiz
       </Button>
 
       <Modal size="lg" show={lgShow} onHide={handleClose}>
-        <Modal.Header closeButton>
-        </Modal.Header>
+      <Modal.Header closeButton>
+      Quiz
+      </Modal.Header>
         <Modal.Body>
           <Flashcard 
           quizQuestions={quizQuestions}

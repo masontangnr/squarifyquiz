@@ -14,21 +14,21 @@ const Flashcard = ({quizQuestions, number, decreaseNumber, increaseNumber, displ
             <p>B) {question.options.b}</p>
             <p>C) {question.options.c}</p>
             <p className="mb-5">D) {question.options.d}</p>
-            {number > 0 ? (
-              <button onClick={decreaseNumber} className="btn btn-primary">
-                Previous Question
+            <div className="button-alignment">
+              {number > 0 ? (
+                <button onClick={decreaseNumber} className="btn btn-primary">
+                  Previous Question
+                </button>
+              ) : null}
+              <button onClick={displayAnswer} className="btn  ml-3 btn-success">
+                Answer
               </button>
-            ) : null}
-
-            <button onClick={displayAnswer} className="btn btn-success ml-3">
-              Answer
-            </button>
-            {quizQuestions.length > index + 1 ? (
-              <button onClick={increaseNumber} className="btn btn-primary ml-3">
-                Next Question
-              </button>
-            ) : null}
-
+              {quizQuestions.length > index + 1 ? (
+                <button onClick={increaseNumber} className="btn ml-3 btn-primary">
+                  Next Question
+                </button>
+              ) : null}
+            </div>
             {showAnswer ? (
               <p className="mt-3">Answer: {question.answer.toUpperCase()}</p>
             ) : null}

@@ -5,7 +5,6 @@ import AddTopic from './containers/AddTopic';
 import Quiz from './containers/Quiz'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddQuestion from './containers/AddQuestion';
-import ModalA from './containers/ModalA'
 
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
   <div className="App">
     <Router>
       <Switch>
-        <Route exact path="/modal" component={ModalA} />
         <Route exact path="/addtopic" component={AddTopic} /> 
         <Route exact path="/:id" component={Quiz} />
         <Route exact path="/addquestion/:id" component={AddQuestion} />
